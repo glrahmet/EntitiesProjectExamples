@@ -19,12 +19,12 @@ namespace DataAccess.Repositories
         {
             _applicationContext = applicationContext;
         }
-        public async Task AddAsync(T entity, CancellationToken cancellationToken)
+        public async Task AddAsync(T entity, CancellationToken cancellationToken = default)
         {
             await _applicationContext.Set<T>().AddAsync(entity, cancellationToken);
         }
 
-        public async Task<T> FindAsync(Expression<Func<T, bool>> expression, CancellationToken cancellationToken)
+        public async Task<T> FindAsync(Expression<Func<T, bool>> expression, CancellationToken cancellationToken = default)
         {
             return await _applicationContext.Set<T>().FindAsync(expression, cancellationToken);
         }
@@ -39,6 +39,7 @@ namespace DataAccess.Repositories
             return _applicationContext.Set<T>().Where(expression).AsQueryable();
         }
 
+
         public void Remove(T entity)
         {
             _applicationContext.Set<T>().Remove(entity);
@@ -47,6 +48,16 @@ namespace DataAccess.Repositories
         public void Update(T entity)
         {
             _applicationContext.Set<T>().Update(entity);
+        }
+
+        public async Task<bool> AnyAsync(Expression<Func<T, bool>> expression, CancellationToken cancellationToken = default)
+        {
+            return await _applicationContext.Set<T>().AnyAsync(expression, cancellationToken);
+        }
+
+        public async Task<T> GetFindFirstExpression(Expression<Func<T, bool>> expression)
+        {
+            return await _applicationContext.Set<T>().Where(expression).FirstAsync();
         }
     }
 }
