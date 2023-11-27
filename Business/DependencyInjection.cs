@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using Business.Behaviors;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -15,9 +16,11 @@ namespace Business
             services.AddMediatR(cfg =>
             {
                 cfg.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly);
+                cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
             });
 
             services.AddValidatorsFromAssembly(typeof(DependencyInjection).Assembly);
+            services.AddAutoMapper(typeof(DependencyInjection).Assembly);
             return services;
         }
     }

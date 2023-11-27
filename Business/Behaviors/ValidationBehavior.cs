@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Business.Behaviors
 {
-    public sealed class ValidationBehavior<TRequst, TResponse> : IPipelineBehavior<TRequst, TResponse> where TRequst : class, IRequest<TRequst>, IRequest
+    public sealed class ValidationBehavior<TRequst, TResponse> : IPipelineBehavior<TRequst, TResponse> where TRequst : class, IRequest<TRequst>
     {
         private readonly IEnumerable<IValidator<TRequst>> _validators;
 

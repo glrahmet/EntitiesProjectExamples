@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Business.Features._Product.CreateProduct
 {
-    internal sealed class CreateValidator : AbstractValidator<CreateProductCommand>
+    internal sealed class CreateProductCommandValidator : AbstractValidator<CreateProductCommand>
     {
-        public CreateValidator()
+        public CreateProductCommandValidator()
         {
             RuleFor(p => p.ProductModel.ProductName).NotEmpty().WithMessage("Product Adı Boş Olamaz");
             RuleFor(p => p.ProductModel.ProductName).NotNull().WithMessage("Product Adı Boş Olamaz");

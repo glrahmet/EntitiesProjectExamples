@@ -8,6 +8,6 @@ using System.Threading.Tasks;
 
 namespace Business.Features._Product.GetProductQuery
 {
-    internal sealed record GetProductQueryCommand : IRequest<List<Product>>;
+    public sealed record GetProductQueryCommand : IRequest<List<Product>>;
 
 }

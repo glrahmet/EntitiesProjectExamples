@@ -1,4 +1,5 @@
-﻿using EntitiesProject.Models;
+﻿using AutoMapper;
+using EntitiesProject.Models;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -12,24 +13,21 @@ namespace Business.Features._Product.UpdateProduct
     {
         private readonly IProductRepository _productRepository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public UpdateProductCommandHandler(IProductRepository productRepository, IUnitOfWork unitOfWork)
+        public UpdateProductCommandHandler(IProductRepository productRepository, IUnitOfWork unitOfWork, IMapper mapper)
         {
             _productRepository = productRepository;
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         public async Task Handle(UpdateProductCommand request, CancellationToken cancellationToken)
         {
-            var isProduct = await _productRepository.GetFindFirstExpression(k => k.Id == request.ProductModel.Id);
-            if (isProduct != null)
+            Product product = await _productRepository.GetFindFirstExpression(k => k.Id == request.ProductModel.Id);
+            if (product != null)
             {
-                isProduct.ProductName = request.ProductModel.ProductName;
-                isProduct.Price = request.ProductModel.Price;
-                isProduct.Quantity = request.ProductModel.Quantity;
-                isProduct.CategoryId = request.ProductModel.CategoryId;
-
-                _productRepository.Update(isProduct);
+                _mapper.Map(request, product); 
                 await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             }

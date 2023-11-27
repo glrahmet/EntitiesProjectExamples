@@ -8,5 +8,5 @@ using System.Threading.Tasks;
 
 namespace Business.Features._Product.CreateProduct
 {
-    public sealed record CreateProductCommand(ProductModel ProductModel) : IRequest;
+    public sealed record CreateProductCommand(ProductModel ProductModel) : IRequest<Unit>;
 }

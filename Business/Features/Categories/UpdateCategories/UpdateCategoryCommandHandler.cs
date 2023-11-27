@@ -1,4 +1,5 @@
-﻿using Business.Features.Categories.UpdateCategories;
+﻿using AutoMapper;
+using Business.Features.Categories.UpdateCategories;
 using EntitiesProject.Models;
 using MediatR;
 
@@ -6,10 +7,12 @@ internal sealed class UpdateCategoryCommandHandler : IRequestHandler<UpdateCateg
 {
     private readonly ICategoryRepository _categoryRepository;
     private readonly IUnitOfWork _unitOfWork;
-    public UpdateCategoryCommandHandler(ICategoryRepository categoryRepository, IUnitOfWork unitOfWork)
+    private readonly IMapper _mapper;
+    public UpdateCategoryCommandHandler(ICategoryRepository categoryRepository, IUnitOfWork unitOfWork, IMapper mapper)
     {
         _categoryRepository = categoryRepository;
         _unitOfWork = unitOfWork;
+        _mapper = mapper;
     }
 
     public async Task Handle(UpdateCategoryCommand request, CancellationToken cancellationToken)
@@ -17,7 +20,7 @@ internal sealed class UpdateCategoryCommandHandler : IRequestHandler<UpdateCateg
         Category category = await _categoryRepository.FindAsync(k => k.Id == request.Id);
         if (category == null)
         {
-            category.CategoryName = request.CategoryName;
+            _mapper.Map(request, category);
             await _unitOfWork.SaveChangesAsync();
         }
         else

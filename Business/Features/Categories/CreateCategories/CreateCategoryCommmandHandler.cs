@@ -1,4 +1,5 @@
-﻿using EntitiesProject.Models;
+﻿using AutoMapper;
+using EntitiesProject.Models;
 using MediatR;
 
 namespace Business.Features.Categories.CreateCategories
@@ -7,11 +8,12 @@ namespace Business.Features.Categories.CreateCategories
     {
         private readonly ICategoryRepository _categoryRepository;
         private readonly IUnitOfWork _unitOfWork;
-
-        public CreateCategoryCommmandHandler(ICategoryRepository categoryRepository, IUnitOfWork unitOfWork)
+        private readonly IMapper _mapper;
+        public CreateCategoryCommmandHandler(ICategoryRepository categoryRepository, IUnitOfWork unitOfWork, IMapper mapper)
         {
             _categoryRepository = categoryRepository;
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         public async Task Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
@@ -20,9 +22,7 @@ namespace Business.Features.Categories.CreateCategories
             var isCategoryNameExits = await _categoryRepository.AnyAsync(k => k.CategoryName == request.CategoryName);
             if (!isCategoryNameExits)
             {
-                Category category = new();
-                category.CategoryName = request.CategoryName;
-
+                Category category = _mapper.Map<Category>(request.CategoryName); 
                 await _categoryRepository.AddAsync(category, cancellationToken);
                 await _unitOfWork.SaveChangesAsync(cancellationToken);
             }

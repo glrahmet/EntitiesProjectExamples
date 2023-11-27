@@ -18,5 +18,6 @@ namespace EntitiesProject.Repositories
         IQueryable<T> GetFindExpression(Expression<Func<T, bool>> expression);
         Task<bool> AnyAsync(Expression<Func<T, bool>> expression, CancellationToken cancellationToken = default);
         Task<T> GetFindFirstExpression(Expression<Func<T, bool>> expression);
+      
     }
 }

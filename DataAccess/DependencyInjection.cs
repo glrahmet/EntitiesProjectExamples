@@ -14,12 +14,12 @@ namespace DataAccess
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection DependencyInjectionAddService(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddDataAccess(this IServiceCollection services, IConfiguration configuration)
         {
-            string connectionString = configuration.GetConnectionString("SqlServer");
+            string connectionString = configuration.GetConnectionString("SqlServerConnection");
             services.AddDbContext<ApplicationContext>(opt =>
             {
-                opt.UseSqlServer("connectionString");
+                opt.UseSqlServer(connectionString);
             });
 
             services.AddIdentityCore<AppUser>(cfg =>

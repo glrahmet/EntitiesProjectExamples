@@ -58,6 +58,6 @@ namespace DataAccess.Repositories
         public async Task<T> GetFindFirstExpression(Expression<Func<T, bool>> expression)
         {
             return await _applicationContext.Set<T>().Where(expression).FirstAsync();
-        }
+        } 
     }
 }

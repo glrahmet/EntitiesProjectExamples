@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Business.Features._Product.UpdateProduct
 {
-    internal sealed record UpdateProductCommand(ProductModel ProductModel) : IRequest
+    public sealed record UpdateProductCommand(ProductModel ProductModel) : IRequest
     {
     }
 }
