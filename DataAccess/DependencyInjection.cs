@@ -40,11 +40,13 @@ namespace DataAccess
             ///usingRegistrationStrategy var olanları atla demek daha öncesinden tanımladıklarımızı 
             /////AsMatchingInterface interfacelerini elde etmek için 
             ///WithScopedLifetime instance türetilmesi sağlar.
-            services.Scan(selector => selector.FromAssemblies(
-                typeof(DependencyInjection).Assembly).AddClasses(publicOnly: false)
-                .UsingRegistrationStrategy(RegistrationStrategy.Skip)
-                .AsMatchingInterface()
-                .WithScopedLifetime());
+            services.Scan(selector => selector
+            .FromAssemblies(
+                typeof(DependencyInjection).Assembly)
+            .AddClasses(publicOnly: false)
+            .UsingRegistrationStrategy(RegistrationStrategy.Skip)
+            .AsMatchingInterface()
+            .WithScopedLifetime());
 
             return services;
 

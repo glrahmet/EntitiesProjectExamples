@@ -7,7 +7,6 @@ namespace Business.Features.Auth.Register
     internal sealed class RegisterCommandHandler : IRequestHandler<RegisterCommand, Unit>
     {
         private readonly UserManager<AppUser> _userManager;
-
         public RegisterCommandHandler(UserManager<AppUser> userManager)
         {
             _userManager = userManager;
@@ -16,20 +15,17 @@ namespace Business.Features.Auth.Register
         public async Task<Unit> Handle(RegisterCommand request, CancellationToken cancellationToken)
         {
             var checkUserNameExits = await _userManager.FindByNameAsync(request.UserName);
-            if (checkUserNameExits is  null)
+            if (checkUserNameExits is not null)
             {
-
-            }
-            else
                 throw new ArgumentException("Bu kullanıcı adı daha önce kullanılmıştır.");
+            }
 
             var checkUserEmailExits = await _userManager.FindByEmailAsync(request.Email);
-            if (checkUserNameExits is  null)
+            if (checkUserNameExits is not null)
             {
-
-            }
-            else
                 throw new ArgumentException("Bu Email Adresi daha önce kullanılmıştır.");
+            }
+           
 
             AppUser appUser = new AppUser()
             {

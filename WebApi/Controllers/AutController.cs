@@ -1,11 +1,13 @@
 ﻿using Business.Features.Auth.Login;
 using Business.Features.Auth.Register;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Abstractions;
 
 namespace WebApi.Controllers
 {
+    [AllowAnonymous]
     public sealed class AutController : ApiController
     {
         public AutController(IMediator mediator) : base(mediator)
@@ -22,8 +24,8 @@ namespace WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginCommand request, CancellationToken cancellationToken)
         {
-            await _mediator.Send(request, cancellationToken);
-            return NoContent();
+            var response = await _mediator.Send(request, cancellationToken);
+            return Ok(response);
         }
     }
 }

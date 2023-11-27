@@ -7,5 +7,5 @@ using System.Threading.Tasks;
 
 namespace Business.Features.Auth.Login
 {
-    public sealed record LoginCommand(string UserNameOrEmail, string Password) : IRequest<Unit>;
+    public sealed record LoginCommand(string UserNameOrEmail, string Password) : IRequest<LoginCommandResponse>;
 }

@@ -1,4 +1,5 @@
 ﻿using Business.Behaviors;
+using EntitiesProject.Models;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -13,10 +14,12 @@ namespace Business
     {
         public static IServiceCollection AddBusiness(this IServiceCollection services)
         {
-            services.AddMediatR(cfg =>
+            services.AddMediatR(cfr =>
             {
-                cfg.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly);
-                cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
+                cfr.RegisterServicesFromAssemblies(
+                    typeof(DependencyInjection).Assembly,
+                    typeof(AppUser).Assembly);
+                cfr.AddOpenBehavior(typeof(ValidationBehavior<,>));
             });
 
             services.AddValidatorsFromAssembly(typeof(DependencyInjection).Assembly);
