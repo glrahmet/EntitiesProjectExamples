@@ -22,7 +22,7 @@ namespace Business.Features.Categories.CreateCategories
             var isCategoryNameExits = await _categoryRepository.AnyAsync(k => k.CategoryName == request.CategoryName);
             if (!isCategoryNameExits)
             {
-                Category category = _mapper.Map<Category>(request.CategoryName); 
+                Category category = _mapper.Map<Category>(request); 
                 await _categoryRepository.AddAsync(category, cancellationToken);
                 await _unitOfWork.SaveChangesAsync(cancellationToken);
             }

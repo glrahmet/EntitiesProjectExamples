@@ -26,7 +26,7 @@ namespace Business.Features._Product.CreateProduct
             var isProduct = await _repository.AnyAsync(k => k.ProductName == request.ProductModel.ProductName);
             if (!isProduct)
             {
-                Product product = _mapper.Map<Product>(request.ProductModel);
+                Product product = _mapper.Map<Product>(request);
 
                 await _repository.AddAsync(product);
                 await _unitOfWork.SaveChangesAsync(cancellationToken);

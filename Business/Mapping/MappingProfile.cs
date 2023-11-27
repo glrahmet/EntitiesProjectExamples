@@ -20,8 +20,9 @@ namespace Business.Mapping
         {
             CreateMap<CreateProductCommand, ProductModel>();
             CreateMap<UpdateProductCommand, ProductModel>();
-            CreateMap<CreateCategoryCommand, Category>();
-            CreateMap<UpdateCategoryCommand, Category>();
+
+            CreateMap<CreateCategoryCommand, Category>().ReverseMap();
+            CreateMap<UpdateCategoryCommand, Category>().ReverseMap();
         }
     }
 }
