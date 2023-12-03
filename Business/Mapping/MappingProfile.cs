@@ -18,11 +18,11 @@ namespace Business.Mapping
     {
         public MappingProfile()
         {
-            CreateMap<CreateProductCommand, ProductModel>();
-            CreateMap<UpdateProductCommand, ProductModel>();
+            CreateMap<CreateProductCommand, Product>();
+            CreateMap<UpdateProductCommand, Product>();
 
-            CreateMap<CreateCategoryCommand, Category>().ReverseMap();
-            CreateMap<UpdateCategoryCommand, Category>().ReverseMap();
+            CreateMap<CreateCategoryCommand, Category>();
+            CreateMap<UpdateCategoryCommand, Category>();
         }
     }
 }

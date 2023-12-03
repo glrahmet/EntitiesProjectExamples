@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Business.Models;
 using EntitiesProject.Models;
 using MediatR;
 using System;

@@ -39,7 +39,6 @@ namespace DataAccess.Repositories
             return _applicationContext.Set<T>().Where(expression).AsQueryable();
         }
 
-
         public void Remove(T entity)
         {
             _applicationContext.Set<T>().Remove(entity);
@@ -58,6 +57,11 @@ namespace DataAccess.Repositories
         public async Task<T> GetFindFirstExpression(Expression<Func<T, bool>> expression)
         {
             return await _applicationContext.Set<T>().Where(expression).FirstAsync();
-        } 
+        }
+
+        public bool Any(Expression<Func<T, bool>> expression)
+        {
+            return _applicationContext.Set<T>().Any(expression);
+        }
     }
 }
