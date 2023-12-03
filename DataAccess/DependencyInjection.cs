@@ -26,6 +26,9 @@ namespace DataAccess
             {
                 cfg.Password.RequireNonAlphanumeric = true;
             }).AddEntityFrameworkStores<ApplicationContext>();
+
+        
+
             //unitofwork çağrıldığında context nesnesin yenile
             services.AddScoped<IUnitOfWork>(sv => sv.GetRequiredService<ApplicationContext>());
 
